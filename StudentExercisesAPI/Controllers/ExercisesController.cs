@@ -41,11 +41,11 @@ namespace ExercisesAPI.Controller
                 {
                     cmd.CommandText = "SELECT Id, ExerciseName, ExerciseLanguage FROM Exercise";
                     SqlDataReader reader = cmd.ExecuteReader();
-                    List<CreateExercise> exercises = new List<CreateExercise>();
+                    List<Exercise> exercises = new List<Exercise>();
 
                     while (reader.Read())
                     {
-                        CreateExercise exercise = new CreateExercise
+                        Exercise exercise = new Exercise
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
@@ -76,11 +76,11 @@ namespace ExercisesAPI.Controller
                     cmd.Parameters.Add(new SqlParameter("@id", id));
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    CreateExercise exercise = null;
+                    Exercise exercise = null;
 
                     if (reader.Read())
                     {
-                        exercise = new CreateExercise
+                        exercise = new Exercise
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
@@ -95,7 +95,7 @@ namespace ExercisesAPI.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateExercise exercise)
+        public async Task<IActionResult> Post([FromBody] Exercise exercise)
         {
             using (SqlConnection conn = Connection)
             {
@@ -116,7 +116,7 @@ namespace ExercisesAPI.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] CreateExercise exercise)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] Exercise exercise)
         {
             try
             {

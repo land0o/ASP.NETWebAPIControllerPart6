@@ -3,26 +3,21 @@ using System.Collections.Generic;
 
 namespace StudentExercises
 {
-    public class CreateStudent : NSSPerson
+    public class Student
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string SlackHandle { get; set; }
         public int Id { get; set; }
         public int CohortId { get; set; }
-        public CreateCohort CreateCohort { get; set; }
+        public Cohort Cohort { get; set; }
 
-        public List<CreateExercise> StudentCurrentExercise = new List<CreateExercise>();
+        public List<Exercise> StudentCurrentExercise = new List<Exercise>();
 
-        public void AddExercise(CreateExercise exercise)
+        public void AddExercise(Exercise exercise)
         {
             StudentCurrentExercise.Add(exercise);
         }
-        // constructor
-        //public CreateStudent(string _firstName, string _lastName, string _slackHandle, CreateCohort Cohort)
-        //{
-        //    FirstName = _firstName;
-        //    LastName = _lastName;
-        //    SlackHandle = _slackHandle;
-        //    StudentCohort = Cohort;
-        //}
 
     }
 }

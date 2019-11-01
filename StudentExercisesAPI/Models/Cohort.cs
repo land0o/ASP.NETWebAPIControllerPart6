@@ -3,21 +3,14 @@ using System.Collections.Generic;
 
 namespace StudentExercises
 {
-    public class CreateCohort
+    public class Cohort
     {
         public int Id { get; set; }
         public string CohortName { get; set; }
 
-        public List<CreateStudent> Student = new List<CreateStudent>();
-        public List<CreateInstructor> Instructor = new List<CreateInstructor>();
+        public List<Student> student = new List<Student>();
+        public List<Instructor> instructor = new List<Instructor>();
 
-        // constructor
-        //public CreateCohort(string name)
-        //{
-        //    CohortName = name;
-        //    Student = new List<CreateStudent>();
-        //    Instructor = new List<CreateInstructor>();
-        //}
 
     }
 }

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using StudentExercisesAPI.Models;
+using StudentExercises;
 
 namespace StudentExercisesAPI.Controller
 {
@@ -39,8 +39,8 @@ namespace StudentExercisesAPI.Controller
                 {
                     cmd.CommandText = @"
                             SELECT s.Id, s.FirstName, s.LastName, s.SlackHandle, 
-                                   s.CohortId, c.Name AS CohortName,
-                                   se.ExerciseId, e.Name AS ExerciseName, e.Language
+                                   s.CohortId, c.CohortName AS CohortName,
+                                   se.ExerciseId, e.ExerciseName AS ExerciseName, e.ExerciseLanguage
                               FROM Student s INNER JOIN Cohort c ON s.CohortId = c.id
                                    LEFT JOIN StudentExercise se on se.StudentId = s.id
                                    LEFT JOIN Exercise e on se.ExerciseId = e.Id";
@@ -64,7 +64,7 @@ namespace StudentExercisesAPI.Controller
                                 Cohort = new Cohort()
                                 {
                                     Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                    Name = reader.GetString(reader.GetOrdinal("CohortName")),
+                                    CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                                 }
                             };
 
@@ -78,10 +78,10 @@ namespace StudentExercisesAPI.Controller
                             Exercise anExercise = new Exercise()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("ExerciseId")),
-                                Name = reader.GetString(reader.GetOrdinal("ExerciseName")),
-                                Language = reader.GetString(reader.GetOrdinal("Language"))
+                                ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
+                                ExerciseLanguage = reader.GetString(reader.GetOrdinal("ExerciseLanguage"))
                             };
-                            fromDictionary.Exercises.Add(anExercise);
+                            fromDictionary.StudentCurrentExercise.Add(anExercise);
                         }
                     }
 
